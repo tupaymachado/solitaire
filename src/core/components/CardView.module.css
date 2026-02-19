@@ -1,0 +1,81 @@
+.card {
+    width: 80px;
+    height: 120px;
+    border-radius: 8px;
+    border: 2px solid #3a3a4a;
+    position: relative;
+    font-family: 'Georgia', serif;
+    user-select: none;
+    cursor: pointer;
+    transition: box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+.card:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+    transform: translateY(-2px);
+}
+
+/* Face up — white background */
+.card.red,
+.card.black {
+    background: linear-gradient(135deg, #f8f8f8, #e8e8e8);
+}
+
+/* Face down — patterned back */
+.faceDown {
+    background: repeating-linear-gradient(45deg,
+            #1a3a6a,
+            #1a3a6a 4px,
+            #1e4480 4px,
+            #1e4480 8px);
+    border-color: #0f2a4f;
+}
+
+/* Colors */
+.red {
+    color: #c0392b;
+}
+
+.black {
+    color: #1a1a2e;
+}
+
+/* Corner labels (top-left, bottom-right) */
+.cornerTopLeft,
+.cornerBottomRight {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1;
+    gap: 1px;
+}
+
+.cornerTopLeft {
+    top: 4px;
+    left: 5px;
+}
+
+.cornerBottomRight {
+    bottom: 4px;
+    right: 5px;
+    transform: rotate(180deg);
+}
+
+.rank {
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.suit {
+    font-size: 11px;
+}
+
+/* Center suit symbol */
+.centerSuit {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 32px;
+}

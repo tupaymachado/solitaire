@@ -1,0 +1,255 @@
+/* ─── Layout geral ────────────────────────────── */
+.board {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 24px;
+    min-height: 100vh;
+    background: linear-gradient(145deg, #0d5e2b, #0a4a22, #073d1b);
+    font-family: 'Georgia', serif;
+}
+
+/* ─── Linha superior ──────────────────────────── */
+.topRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.stockWaste {
+    display: flex;
+    gap: 12px;
+}
+
+.foundations {
+    display: flex;
+    gap: 12px;
+}
+
+/* ─── Espaço genérico para uma carta ──────────── */
+.pile {
+    width: 80px;
+    height: 120px;
+    border-radius: 8px;
+    border: 2px dashed rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.stock {
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+.stock:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.emptyPile {
+    font-size: 28px;
+    color: rgba(255, 255, 255, 0.3);
+}
+
+.foundationEmpty {
+    font-size: 32px;
+    opacity: 0.4;
+}
+
+/* ─── Verso da carta (stock) ──────────────────── */
+.cardBack {
+    width: 100%;
+    height: 100%;
+    border-radius: 6px;
+    background: repeating-linear-gradient(45deg,
+            #1a3a6a,
+            #1a3a6a 4px,
+            #1e4480 4px,
+            #1e4480 8px);
+    border: 2px solid #0f2a4f;
+}
+
+/* ─── Tableau ─────────────────────────────────── */
+.tableau {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.column {
+    position: relative;
+    width: 80px;
+    min-height: 120px;
+}
+
+.emptyColumn {
+    border-style: dashed;
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+.columnCard {
+    position: absolute;
+    left: 0;
+    transition: top 0.2s ease;
+}
+
+/* ─── Mensagem de vitória ─────────────────────── */
+.winMessage {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.85);
+    color: #ffd700;
+    padding: 32px 48px;
+    border-radius: 16px;
+    font-size: 28px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    z-index: 100;
+}
+
+.winMessage button {
+    padding: 8px 24px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: none;
+    background: #ffd700;
+    color: #1a1a2e;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.winMessage button:hover {
+    background: #ffed4a;
+}
+
+/* ─── Drop highlight (quando arrastando sobre uma zona) ── */
+.dropHighlight {
+    box-shadow: 0 0 12px 3px rgba(100, 255, 100, 0.5);
+    border-color: rgba(100, 255, 100, 0.6) !important;
+    transition: box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+/* ─── Stack sendo arrastado (DragOverlay) ────────── */
+.dragStack {
+    pointer-events: none;
+    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.4));
+}
+
+/* ─── Flying card (auto-complete animation) ───── */
+.flyingCard {
+    position: fixed;
+    z-index: 200;
+    pointer-events: none;
+    transition: left 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+        top 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.5));
+}
+
+/* ─── Toolbar ─────────────────────────────────── */
+.toolbar {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.toolbarButton {
+    padding: 8px 16px;
+    font-size: 14px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.9);
+    cursor: pointer;
+    transition: background 0.15s ease, opacity 0.15s ease;
+    font-family: inherit;
+}
+
+.toolbarButton:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.toolbarButton:disabled {
+    opacity: 0.35;
+    cursor: default;
+}
+
+.autoCompleteReady {
+    border-color: rgba(255, 215, 0, 0.5);
+    color: #ffd700;
+    animation: glowPulse 1.5s ease-in-out infinite;
+}
+
+/* ─── Hint highlight ──────────────────────────── */
+.hintHighlight {
+    box-shadow: 0 0 14px 4px rgba(255, 215, 0, 0.6);
+    border-color: rgba(255, 215, 0, 0.7) !important;
+    animation: hintPulse 0.6s ease-in-out 3;
+}
+
+.hintToast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.85);
+    color: #ffd700;
+    font-size: 14px;
+    padding: 10px 20px;
+    border-radius: 24px;
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    z-index: 50;
+    animation: toastIn 0.3s ease;
+    pointer-events: none;
+}
+
+@keyframes hintPulse {
+
+    0%,
+    100% {
+        box-shadow: 0 0 14px 4px rgba(255, 215, 0, 0.6);
+    }
+
+    50% {
+        box-shadow: 0 0 20px 8px rgba(255, 215, 0, 0.9);
+    }
+}
+
+@keyframes glowPulse {
+
+    0%,
+    100% {
+        border-color: rgba(255, 215, 0, 0.3);
+    }
+
+    50% {
+        border-color: rgba(255, 215, 0, 0.7);
+    }
+}
+
+@keyframes toastIn {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
