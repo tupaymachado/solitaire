@@ -1,4 +1,3 @@
-/* ─── Layout geral ────────────────────────────── */
 .board {
     display: flex;
     flex-direction: column;
@@ -9,7 +8,6 @@
     font-family: 'Georgia', serif;
 }
 
-/* ─── Linha superior ──────────────────────────── */
 .topRow {
     display: flex;
     justify-content: space-between;
@@ -26,7 +24,6 @@
     gap: 12px;
 }
 
-/* ─── Espaço genérico para uma carta ──────────── */
 .pile {
     width: 80px;
     height: 120px;
@@ -56,7 +53,6 @@
     opacity: 0.4;
 }
 
-/* ─── Verso da carta (stock) ──────────────────── */
 .cardBack {
     width: 100%;
     height: 100%;
